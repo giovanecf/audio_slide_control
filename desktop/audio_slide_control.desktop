@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=false
+Exec=/home/user/app/audio_slide_control/audio_slide_control.sh
+Name=Controle Áudio e Slide
+Icon=/home/user/app/audio_slide_control/img/icon.png
