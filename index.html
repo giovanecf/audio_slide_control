@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Controle de áudio e slide</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+      body {
+        background-color: #111;
+        color: white;
+        overflow-x: hidden;
+      }
+      .container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        background-color: #000;
+      }
+      nav a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 8rem;
+        padding: 0.5rem 1rem;
+        border: 1px solid white;
+        border-radius: 0.25rem;
+        text-decoration: none;
+        font-weight: 700;
+        color: white;
+      }
+      nav a:hover {
+        opacity: 0.9;
+      }
+      nav h3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 1rem 0 4rem 0;
+      }
+      main > h4 {
+        color: #aaa;
+        opacity: 0.5;
+      }
+      main button {
+        width: 15rem;
+        height: 3rem;
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+        border: 0.15rem solid white;
+        font-weight: 600;
+        background: transparent;
+        color: white;
+      }
+      main button:hover {
+        opacity: 0.9;
+        cursor: pointer;
+      }
+      hr {
+        border-top: 0.15rem solid #aaa;
+        border-radius: 0.15rem;
+        width: 60vw;
+      }
+      .container-audios > img {
+        margin: 0 0 1.5rem -14vw;
+      }
+      .container-slides > img {
+        margin: 0 0 1.5rem -14vw;
+      }
+      div.audios {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+      }
+      div.slides {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+      }
+      .selected-audio-button {
+        color: #ff0000;
+        border-color: #ff0000;
+      }
+      .selected-audio-button:hover {
+        opacity: 1;
+      }
+      .selected-slide-button {
+        color: #ffff00;
+        border-color: #ffff00;
+      }
+      .selected-slide-button:hover {
+        opacity: 1;
+      }
+
+      footer {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem 0 2rem 0;
+        font: 0.5rem;
+        background: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <a
+          href="http://127.0.0.1:7000"
+          target="_blank"
+          rel="noopener noreferrer"
+          >SERVER</a
+        >
+        <h3>CONTROLE DE ÁUDIO E SLIDE</h3>
+        <a href="./viewer.html" target="_blank" rel="noopener noreferrer"
+          >VIZUALIZADOR</a
+        >
+      </nav>
+      <main>
+        <h4 align="center">Selecione um opção de som e/ou slide</h4>
+        <div class="container-audios">
+          <img src="./img/sound.svg" alt="ícone audio" width="32" />
+          <div class="audios"></div>
+        </div>
+        <hr />
+
+        <div class="container-slides">
+          <img src="./img/slide.svg" alt="ícone slide" width="32" />
+          <div class="slides"></div>
+        </div>
+      </main>
+      <footer>
+        <span>© <span id="ano_footer"></span> Controle de Aúdio e Slide</span>
+        <span>-</span>
+        <span>
+          Faculdade de Farmácia UF<span
+            style="color: red; text-decoration: underline"
+            >M</span
+          >G
+        </span>
+      </footer>
+    </div>
+  </body>
+
+  <script src="./js/axios.min.js"></script>
+  <script>
+    let CURRENT_AUDIO = {};
+    let CURRENT_SLIDE = {};
+
+    document.querySelector("#ano_footer").innerText = new Date().getFullYear();
+
+    function changeCurrentMedia(audio, slide) {
+      if (slide.html_element === "video" && CURRENT_AUDIO.autoplay) {
+        if (!confirm("Uma música está tocando. Deseja continuar?")) return;
+      }
+      if (CURRENT_SLIDE.html_element == "video" && audio.autoplay) {
+        alert(
+          "Um vídeo foi selecionado. Por favor, selecione uma imagem antes para que o som seja tocado."
+        );
+        return;
+      }
+
+      axios.post("http://127.0.0.1:7000/current", {
+        audio_desc: audio.desc,
+        slide_desc: slide.desc,
+      });
+      loadButtonList();
+    }
+
+    function generateAudiosButtonList(audios) {
+      const audios_list = document.querySelector("div.audios");
+
+      audios_list.innerHTML = "";
+
+      audios.forEach((audio, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.innerText = audio.desc;
+        button.addEventListener("click", () => {
+          changeCurrentMedia(audio, "");
+        });
+        if (audio.desc === CURRENT_AUDIO.desc)
+          button.classList.add("selected-audio-button");
+
+        audios_list.appendChild(button);
+      });
+    }
+
+    function generateSlidesButtonList(slides) {
+      const slides_list = document.querySelector("div.slides");
+
+      slides_list.innerHTML = "";
+
+      slides.forEach((slide, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.innerText = slide.desc;
+        button.addEventListener("click", () => {
+          changeCurrentMedia("", slide);
+        });
+        if (slide.desc === CURRENT_SLIDE.desc)
+          button.classList.add("selected-slide-button");
+
+        slides_list.appendChild(button);
+      });
+    }
+
+    function loadButtonList() {
+      let slides = [];
+      let audios = [];
+      axios
+        .get("http://127.0.0.1:7000")
+        .then((response) => {
+          slides = response.data.slides;
+          audios = response.data.audios;
+          return axios.get("http://127.0.0.1:7000/current");
+        })
+        .then((response) => {
+          const { current_audio, current_slide } = response.data;
+          CURRENT_AUDIO = current_audio;
+          CURRENT_SLIDE = current_slide;
+
+          console.log(CURRENT_AUDIO, CURRENT_SLIDE);
+          generateAudiosButtonList(audios);
+          generateSlidesButtonList(slides);
+        });
+    }
+
+    loadButtonList();
+  </script>
+</html>

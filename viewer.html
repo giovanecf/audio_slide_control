@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Vizualizador</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+      body {
+        background: #f3f4f5;
+        overflow: hidden;
+      }
+      main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+      }
+      main > img {
+        width: 100vw;
+        height: 100vh;
+      }
+      main > video {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <main></main>
+    <audio></audio>
+  </body>
+
+  <script src="./js/axios.min.js"></script>
+  <script>
+    let CURRENT_AUDIO = null;
+    let CURRENT_SLIDE = null;
+    let PATH_TO_ASSETS = "./";
+
+    function loadNewAudio() {
+      const audio_element = document.querySelector("audio");
+
+      if (CURRENT_AUDIO.full_path === "")
+        audio_element.src = PATH_TO_ASSETS + CURRENT_AUDIO.path;
+      else audio_element.src = CURRENT_AUDIO.full_path;
+
+      if (CURRENT_AUDIO.autoplay) {
+        document.querySelector("main").click();
+        setTimeout(() => {
+          document.querySelector("img").click();
+          audio_element.play();
+        }, 1000);
+      }
+
+      console.log(PATH_TO_ASSETS + CURRENT_AUDIO.path);
+    }
+
+    function loadNewSlide() {
+      const main_element = document.querySelector("main");
+      main_element.innerHTML = "";
+
+      const new_element = document.createElement(CURRENT_SLIDE.html_element);
+
+      if (CURRENT_SLIDE.full_path === "")
+        new_element.src = PATH_TO_ASSETS + CURRENT_SLIDE.path;
+      else new_element.src = CURRENT_SLIDE.full_path;
+
+      if (CURRENT_SLIDE.autoplay) {
+        new_element.autoplay = true;
+      }
+
+      main_element.appendChild(new_element);
+    }
+
+    function checkForNewSlide() {
+      axios.get("http://127.0.0.1:7000/current").then((response) => {
+        const { current_audio, current_slide } = response.data;
+
+        if (!CURRENT_AUDIO && !CURRENT_SLIDE) {
+          CURRENT_AUDIO = current_audio;
+          CURRENT_SLIDE = current_slide;
+          loadNewAudio();
+          loadNewSlide();
+        } else if (
+          !CURRENT_AUDIO ||
+          CURRENT_AUDIO.desc !== current_audio.desc
+        ) {
+          CURRENT_AUDIO = current_audio;
+          loadNewAudio();
+        } else if (
+          !CURRENT_SLIDE ||
+          CURRENT_SLIDE.desc !== current_slide.desc
+        ) {
+          CURRENT_SLIDE = current_slide;
+          loadNewSlide();
+        }
+      });
+    }
+
+    setInterval(checkForNewSlide, 1000);
+  </script>
+</html>
