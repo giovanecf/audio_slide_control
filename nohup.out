@@ -47,3 +47,5 @@ API on port http://127.0.0.1:7000
 { audio_desc: 'ESPERA (ELETRÔNICA)', slide_desc: undefined }
 { audio_desc: 'SAÍDA (O QUE É O QUE É)', slide_desc: undefined }
 { audio_desc: 'ESPERA (ELETRÔNICA)', slide_desc: undefined }
+API on port http://127.0.0.1:7000
+API on port http://127.0.0.1:7000
