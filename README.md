@@ -1,6 +1,6 @@
 # Audio Slide Control
 
-##How to Run
+## How to Run
 
 chmod +x audio_slide_control.sh
 ./audio_clide_control.sh
@@ -12,14 +12,14 @@ whatever is the current resource to play/show.
 
 ![project print](https://raw.githubusercontent.com/giovanecf/audio_slide_control/main/blob/print.jpg)
 
-#Warning
+## Warning
 
 Needs: - nodejs - any browser
 
 For other browser diff than Firefox, change 'audio_slide_control.sh'(How? See next section)
 Or just execute manually index.sh and index.html
 
-##How it works
+## How it works
 
 The audio_slide_control.sh is very simple to understand:
 
