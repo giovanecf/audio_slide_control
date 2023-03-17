@@ -14,7 +14,9 @@ whatever is the current resource to play/show.
 
 ## Warning
 
-Needs: - nodejs - any browser
+Needs: 
+	- nodejs 
+	- any browser
 
 For other browser diff than Firefox, change 'audio_slide_control.sh'(How? See next section)
 Or just execute manually index.sh and index.html
