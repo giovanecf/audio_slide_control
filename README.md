@@ -10,7 +10,7 @@ With one browser window you can choose what to show at other browser window.
 The first window set the current resource. The second one keeps listenings any change and play/show
 whatever is the current resource to play/show.
 
-![project print](https://github.com/giovanecf/audio_slide_control/tree/main/blob/print.jpg?raw=true)
+![project print](https://raw.githubusercontent.com/giovanecf/audio_slide_control/main/blob/print.jpg)
 
 #Warning
 
