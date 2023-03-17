@@ -1,0 +1,49 @@
+node:internal/modules/cjs/loader:1078
+  throw err;
+  ^
+
+Error: Cannot find module '/home/user/app/audio_slide_control/server/index.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1075:15)
+    at Module._load (node:internal/modules/cjs/loader:920:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+    at node:internal/main/run_main_module:23:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v18.15.0
+node:internal/modules/cjs/loader:1078
+  throw err;
+  ^
+
+Error: Cannot find module '/home/user/app/audio_slide_control/server/index.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1075:15)
+    at Module._load (node:internal/modules/cjs/loader:920:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+    at node:internal/main/run_main_module:23:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v18.15.0
+node:internal/modules/cjs/loader:1078
+  throw err;
+  ^
+
+Error: Cannot find module '/home/user/app/audio_slide_control/server/index.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1075:15)
+    at Module._load (node:internal/modules/cjs/loader:920:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+    at node:internal/main/run_main_module:23:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v18.15.0
+API on port http://127.0.0.1:7000
+{ audio_desc: 'ESPERA (ELETRÔNICA)', slide_desc: undefined }
+{ audio_desc: undefined, slide_desc: 'WALLPAPER FARMÁCIA' }
+{ audio_desc: 'ESPERA (CLÁSSICA)', slide_desc: undefined }
+{ audio_desc: 'ESPERA (ELETRÔNICA)', slide_desc: undefined }
+{ audio_desc: 'SAÍDA (O QUE É O QUE É)', slide_desc: undefined }
+{ audio_desc: 'ESPERA (ELETRÔNICA)', slide_desc: undefined }

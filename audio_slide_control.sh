@@ -2,7 +2,7 @@
 
 killall node
 
-nohup node /home/user/app/audio_slide_control/server/index.js &
+nohup node ./server/index.js &
 
-#google-chrome /home/user/app/audio_slide_control/index.html
-firefox /home/user/app/audio_slide_control/index.html
+#google-chrome ./index.html
+firefox ./index.html
